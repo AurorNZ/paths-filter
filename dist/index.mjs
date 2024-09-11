@@ -29684,9 +29684,13 @@ function exportResults(results, format) {
     }
     core3.setOutput(`${key}_count`, files.length);
     for (const status of Object.values(ChangeStatus)) {
-      const matches = files.some((x) => x.status === status);
-      if (matches) {
+      const matches = files.filter((x) => x.status === status);
+      if (matches.length > 0) {
         core3.setOutput(`${key}_${status.toLocaleLowerCase()}`, true);
+      }
+      if (format !== "none") {
+        const filesValue = serializeExport(files, format);
+        core3.setOutput(`${key}_${status.toLocaleLowerCase()}_files`, filesValue);
       }
     }
     if (format !== "none") {

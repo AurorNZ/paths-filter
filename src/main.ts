@@ -251,9 +251,14 @@ function exportResults(results: FilterResults, format: ExportFormat): void {
     core.setOutput(`${key}_count`, files.length)
 
     for (const status of Object.values(ChangeStatus)) {
-      const matches = files.some(x => x.status === status)
-      if (matches) {
+      const matches = files.filter(x => x.status === status)
+      if (matches.length > 0) {
         core.setOutput(`${key}_${status.toLocaleLowerCase()}`, true)
+      }
+
+      if (format !== 'none') {
+        const filesValue = serializeExport(files, format)
+        core.setOutput(`${key}_${status.toLocaleLowerCase()}_files`, filesValue)
       }
     }
 
