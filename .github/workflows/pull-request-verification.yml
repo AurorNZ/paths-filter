@@ -152,3 +152,7 @@ jobs:
       - name: added-test
         if: steps.filter.outputs.local_added != 1
         run: exit 1
+
+      - name: modified-test
+        if: steps.filter.outputs.local_modified != 0
+        run: exit 1
