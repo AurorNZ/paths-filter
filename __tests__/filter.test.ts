@@ -135,19 +135,23 @@ describe('matching tests', () => {
     src:
       - 'src/**/*.ts'
       - '!src/**/*.test.ts'
+      - 'src/special_test/tests/*.test.ts'
     `
     const filter = new Filter(yaml)
     const jsFiles = modified(['src/app/module/file.js'])
     const tsFiles = modified(['src/app/module/file.ts'])
     const tsTestFiles = modified(['src/app/module/file.test.ts'])
+    const overriddenTestFiles = modified(['src/special_test/tests/file.test.ts'])
 
     const jsMatch = filter.match(jsFiles)
     const tsMatch = filter.match(tsFiles)
     const tsTestMatch = filter.match(tsTestFiles)
+    const overiddenTestMatch = filter.match(overriddenTestFiles)
 
     expect(jsMatch.src).toEqual([])
     expect(tsMatch.src).toEqual(tsFiles)
     expect(tsTestMatch.src).toEqual([])
+    expect(overiddenTestMatch.src).toEqual(overriddenTestFiles)
   })
 
   test('matches path based on rules included using YAML anchor', () => {

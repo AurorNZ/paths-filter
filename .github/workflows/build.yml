@@ -1,7 +1,7 @@
-name: "Build"
+name: 'Build'
 on:
   push:
-    paths-ignore: [ '*.md' ]
+    paths-ignore: ['*.md']
     branches:
       - master
 
@@ -12,20 +12,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: volta-cli/action@v4
-    - run: |
-        pnpm install
-        pnpm run all
+      - uses: actions/checkout@v4
+      - uses: volta-cli/action@v4
+      - run: |
+          pnpm install
+          pnpm run all
 
   self-test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: ./
-      id: filter
-      with:
-        filters: '.github/filters.yml'
-    - name: filter-test
-      if: steps.filter.outputs.any != 'true' || steps.filter.outputs.error == 'true'
-      run: exit 1
+      - uses: actions/checkout@v4
+      - uses: ./
+        id: filter
+        with:
+          filters: '.github/filters.yml'
+
+      - name: filter-test
+        if: steps.filter.outputs.any != 'true' || steps.filter.outputs.error == 'true'
+        run: exit 1
