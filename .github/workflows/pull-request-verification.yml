@@ -142,7 +142,7 @@ jobs:
         run: echo "$OUTPUT"
 
       - name: filter-test
-        if: steps.filter.outputs.local != 'true'
+        if: '!steps.filter.outputs.local'
         run: exit 1
 
       - name: count-test
@@ -150,9 +150,9 @@ jobs:
         run: exit 1
 
       - name: added-test
-        if: steps.filter.outputs.local_added != 1
+        if: ${{ !steps.filter.outputs.local_added }}
         run: exit 1
 
       - name: modified-test
-        if: steps.filter.outputs.local_modified != 0
+        if: ${{ steps.filter.outputs.local_modified }}
         run: exit 1

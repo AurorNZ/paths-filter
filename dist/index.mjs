@@ -29679,10 +29679,15 @@ function exportResults(results, format) {
     } else {
       core3.info("Matching files: none");
     }
-    core3.setOutput(key, value);
+    if (value) {
+      core3.setOutput(key, value);
+    }
     core3.setOutput(`${key}_count`, files.length);
     for (const status of Object.values(ChangeStatus)) {
-      core3.setOutput(`${key}_${status.toLocaleLowerCase()}`, files.filter((x) => x.status === status).length);
+      const matches = files.some((x) => x.status === status);
+      if (matches) {
+        core3.setOutput(`${key}_${status.toLocaleLowerCase()}`, true);
+      }
     }
     if (format !== "none") {
       const filesValue = serializeExport(files, format);

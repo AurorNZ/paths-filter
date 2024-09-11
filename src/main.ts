@@ -240,11 +240,21 @@ function exportResults(results: FilterResults, format: ExportFormat): void {
       core.info('Matching files: none')
     }
 
-    core.setOutput(key, value)
+    if (value) {
+      // GH converts all outputs to strings
+      // if we output false, it will be converted to 'false' which is truthy
+      // if we don't output false, it will be converted to undefined which is falsy
+      // let's not output false to allow loose equality checks
+      core.setOutput(key, value)
+    }
+
     core.setOutput(`${key}_count`, files.length)
 
     for (const status of Object.values(ChangeStatus)) {
-      core.setOutput(`${key}_${status.toLocaleLowerCase()}`, files.filter(x => x.status === status).length)
+      const matches = files.some(x => x.status === status)
+      if (matches) {
+        core.setOutput(`${key}_${status.toLocaleLowerCase()}`, true)
+      }
     }
 
     if (format !== 'none') {
