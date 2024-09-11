@@ -26585,6 +26585,17 @@ var core3 = __toESM(require_core(), 1);
 var github = __toESM(require_github(), 1);
 import * as fs from "node:fs";
 
+// src/file.ts
+var ChangeStatus = /* @__PURE__ */ ((ChangeStatus2) => {
+  ChangeStatus2["Added"] = "added";
+  ChangeStatus2["Copied"] = "copied";
+  ChangeStatus2["Deleted"] = "deleted";
+  ChangeStatus2["Modified"] = "modified";
+  ChangeStatus2["Renamed"] = "renamed";
+  ChangeStatus2["Unmerged"] = "unmerged";
+  return ChangeStatus2;
+})(ChangeStatus || {});
+
 // node_modules/.pnpm/js-yaml@4.1.0/node_modules/js-yaml/dist/js-yaml.mjs
 function isNothing(subject) {
   return typeof subject === "undefined" || subject === null;
@@ -29668,8 +29679,20 @@ function exportResults(results, format) {
     } else {
       core3.info("Matching files: none");
     }
-    core3.setOutput(key, value);
+    if (value) {
+      core3.setOutput(key, value);
+    }
     core3.setOutput(`${key}_count`, files.length);
+    for (const status of Object.values(ChangeStatus)) {
+      const matches = files.filter((x) => x.status === status);
+      if (matches.length > 0) {
+        core3.setOutput(`${key}_${status.toLocaleLowerCase()}`, true);
+      }
+      if (format !== "none") {
+        const filesValue = serializeExport(files, format);
+        core3.setOutput(`${key}_${status.toLocaleLowerCase()}_files`, filesValue);
+      }
+    }
     if (format !== "none") {
       const filesValue = serializeExport(files, format);
       core3.setOutput(`${key}_files`, filesValue);
