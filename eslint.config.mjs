@@ -48,7 +48,8 @@ export default tsEslint.config(
         }
       ],
       'import-x/order': ['warn', {'newlines-between': 'always', alphabetize: {order: 'asc'}}],
-      'no-console': ['warn']
+      'no-console': ['warn'],
+      'no-useless-assignment': 'off'
     }
   },
   {
