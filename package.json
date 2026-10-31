@@ -28,33 +28,33 @@
     "@actions/core": "3.0.1",
     "@actions/exec": "3.0.0",
     "@actions/github": "9.1.1",
-    "js-yaml": "5.4.1",
+    "js-yaml": "5.5.0",
     "micromatch": "4.0.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.7",
     "@eslint/js": "10.0.1",
-    "@octokit/openapi-webhooks-types": "12.1.0",
+    "@octokit/openapi-webhooks-types": "12.2.0",
     "@tsconfig/node24": "24.0.5",
     "@types/js-yaml": "4.0.9",
     "@types/micromatch": "4.0.10",
-    "@types/node": "26.5.0",
-    "@typescript-eslint/eslint-plugin": "8.70.0",
-    "@typescript-eslint/parser": "8.70.0",
-    "chalk": "6.0.0",
+    "@types/node": "26.6.5",
+    "@typescript-eslint/eslint-plugin": "8.72.1",
+    "@typescript-eslint/parser": "8.72.1",
+    "chalk": "6.0.1",
     "esbuild": "0.28.2",
-    "eslint": "10.10.0",
+    "eslint": "10.13.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-typescript": "4.4.5",
     "eslint-plugin-github": "6.1.2",
     "eslint-plugin-import-x": "4.17.1",
-    "prettier": "3.9.6",
+    "prettier": "3.9.10",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.70.0",
-    "vitest": "5.0.0"
+    "typescript-eslint": "8.72.1",
+    "vitest": "5.0.5"
   },
   "volta": {
-    "node": "24.20.0",
-    "pnpm": "11.26.0"
+    "node": "24.22.2",
+    "pnpm": "11.28.9"
   }
 }
